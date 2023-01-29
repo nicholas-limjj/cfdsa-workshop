@@ -14,3 +14,16 @@ metadata:
 type: Opaque  
 data:
   BGG_DB_PASSWORD: Y2hhbmdlaXQ=
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-cm
+data:
+  hosts: |
+    127.0.0.1       localhost
+    255.255.255.255 broadcasthost
+    ::1             localhost
+  readme.txt: |
+    this is a readme file    

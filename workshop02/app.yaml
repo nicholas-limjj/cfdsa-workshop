@@ -8,6 +8,11 @@ metadata:
   namespace: bggns
 spec:
   replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: 
+      maxSurge: 1
+      maxUnavailable: 1
   selector:
     matchLabels:
       name: bggapp-po
@@ -54,3 +59,23 @@ spec:
   - port: 80
     targetPort: 3000
 
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ing
+  labels:
+    name: app-ings
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: app-146.190.202.91.nip.io
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: bggapp-svc
+            port: 
+              number: 3000
